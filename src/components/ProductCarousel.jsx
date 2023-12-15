@@ -7,8 +7,10 @@ import {
   responsiveWidth,
 } from "react-native-responsive-dimensions";
 import { MyColors } from "../utils/MyColors";
+import { useNavigation } from "@react-navigation/native";
 
 const ProductCarousel = ({data}) => {
+  const nav = useNavigation()
   return (
     <View>
       <FlatList
@@ -18,7 +20,9 @@ const ProductCarousel = ({data}) => {
         renderItem={({ item, index }) => (
           <TouchableOpacity
           onPress={()=>{
-            console.log("press");
+            nav.navigate('Details',{
+              main:item
+            })
           }}
           activeOpacity={0.7}
             style={{

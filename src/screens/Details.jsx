@@ -1,23 +1,26 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons, Feather, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import Dropbox from "../components/Dropbox";
+import { MyColors } from "../utils/MyColors";
 
-const Details = () => {
+const Details = ({route}) => {
+    const {name, pieces,price,img} = route.params.main
   const nav = useNavigation();
   return (
-    <SafeAreaView style={{ flex: 1, gap: 20 }}>
+    <SafeAreaView style={{ flex: 1, gap: 20}}>
       <View>
         <Image
+        resizeMode='contain'
           style={{
             height: 200,
             borderBottomLeftRadius: 25,
             borderBottomRightRadius: 25,
           }}
           source={{
-            uri: "https://img.freepik.com/free-photo/delicious-red-apples-studio_23-2150811013.jpg?size=626&ext=jpg&uid=R94678817&ga=GA1.1.470225386.1702588561&semt=sph",
+            uri: img
           }}
         />
         <View
@@ -50,17 +53,39 @@ const Details = () => {
           }}
         >
           <Text style={{ fontSize: 25, fontWeight: "600" }}>
-            Natural Fresh Apple
+            {name.charAt(0).toUpperCase() + name.slice(1)}
           </Text>
           <MaterialIcons name="favorite-border" size={25} color="red" />
         </View>
         <Text style={{ fontSize: 15, color: "grey", marginTop: 5 }}>
-          1Kg, Price
+          {pieces}, Price
         </Text>
-        <Text style={{ fontSize: 25, marginTop: 5,fontWeight:'bold' }}>
-          $4.99
+        <Text style={{ fontSize: 25, marginTop: 5, fontWeight: "bold" }}>
+        ₹{price}
         </Text>
         <Dropbox />
+        <View
+        >
+          <TouchableOpacity
+            style={{
+              backgroundColor: MyColors.primary,
+              height: 70,
+              borderRadius: 20,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 17,
+                color: MyColors.secondary,
+                fontWeight: "bold",
+              }}
+            >
+              Add to Basket
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );
